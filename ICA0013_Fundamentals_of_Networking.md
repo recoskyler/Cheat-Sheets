@@ -206,7 +206,7 @@ Switch(config)# |
 
 #### Configuring an interface
 
-> *"Switch(config-if)# no shut"* command enables the interface.
+> *"no shut"* command enables the interface.
 
 ``` bash
 Switch(config)# interface INTERFACE_NAME INTERFACE_NO
