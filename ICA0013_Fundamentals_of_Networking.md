@@ -466,4 +466,4 @@ C:\Users\USERNAME\> |
 
 ---
 
-*By Adil Atalay Hamamcıoğlu, a Cybersecurity Engineering student at Tallinn University of Technology, 2019 - 2023*
+> By Adil Atalay Hamamcıoğlu, a Cybersecurity Engineering student at Tallinn University of Technology, 2019 - 2023
