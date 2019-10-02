@@ -35,6 +35,7 @@
     - [Viewing interfaces, IP, MAC address, gateway, subnet mask](#viewing-interfaces-ip-mac-address-gateway-subnet-mask)
     - [Pinging](#pinging)
     - [Viewing ARP table of the computer](#viewing-arp-table-of-the-computer)
+  - [About](#about)
   
 ## SWITCH/ROUTER
 
@@ -466,4 +467,7 @@ C:\Users\USERNAME\> |
 
 ---
 
-> By Adil Atalay Hamamcıoğlu, a Cybersecurity Engineering student at Tallinn University of Technology, 2019 - 2023
+## About
+
+By Adil Atalay Hamamcıoğlu, a Cybersecurity Engineering student at Tallinn University of Technology, 2019 - 2023.
+Made this cheat-sheet to not to suffer in Cisco Networking Labs.
