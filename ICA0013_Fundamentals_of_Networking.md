@@ -30,7 +30,7 @@
     - [Clear MAC address table](#clear-mac-address-table)
     - [View routing table](#view-routing-table)
   - [COMPUTER](#computer)
-    - [Opening "Command Prompt"](#opening-%22command-prompt%22)
+    - [Opening Command Prompt](#opening-command-prompt)
     - [Viewing interfaces, IP, MAC address, gateway, subnet mask](#viewing-interfaces-ip-mac-address-gateway-subnet-mask)
     - [Pinging](#pinging)
     - [Viewing ARP table](#viewing-arp-table-1)
@@ -378,7 +378,7 @@ Router# show ip route
 
 ## COMPUTER
 
-### Opening "Command Prompt"
+### Opening Command Prompt
 
 1. Press *WIN* + *R*.
 2. Type *"cmd"*.
