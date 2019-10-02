@@ -79,8 +79,8 @@ Switch uptime is 2 minutesSystem returned to ROM by power-onSystem image file is
 
 ### Enabling and disabling "EXEC Mode"
 
-- **"Switch>"** --> No EXEC Mode
-- **"Switch#"** --> EXEC Mode
+> **"Switch>"** --> No EXEC Mode
+> **"Switch#"** --> EXEC Mode
 
 ``` bash
 Switch> enable
@@ -115,8 +115,8 @@ Switch# clock set 14:56:24 Oct 02 2019
 
 ### Configuring terminal
 
-- **"Switch#"** --> Not in configure mode
-- **"Switch(config)#"** --> In configure mode
+> **"Switch#"** --> Not in configure mode
+> **"Switch(config)#"** --> In configure mode
 
 ``` bash
 Switch# conf t
@@ -205,8 +205,6 @@ Switch(config)# |
 
 #### Configuring an interface
 
-Use the following command to enable an interface
-
 ``` bash
 Switch(config-if)# no shut
 ```
@@ -261,30 +259,30 @@ Switch# |
 
 1. Delete VLAN configuration.
 
-``` bash
-Switch# delete vlan.dat
-Delete filename [vlan.dat]? y
-Delete flash:/vlan.dat? [confirm] y
-Switch# |
-```
+    ``` bash
+    Switch# delete vlan.dat
+    Delete filename [vlan.dat]? y
+    Delete flash:/vlan.dat? [confirm] y
+    Switch# |
+    ```
 
 2. Erase startup-config.
 
-``` bash
-Switch# erase startup-config
-Erasing the nvram filesystem will remove all configuration files! Continue? [confirm] y
-[OK]
-Erase of nvram: complete
-Switch# |
-```
+    ``` bash
+    Switch# erase startup-config
+    Erasing the nvram filesystem will remove all configuration files! Continue? [confirm] y
+    [OK]
+    Erase of nvram: complete
+    Switch# |
+    ```
 
 3. Reload the switch.
 
-``` bash
-Switch# reload
-Proceed with reload? [confirm] y
-System configuration has been modified. Save? [yes/no]: n
-```
+    ``` bash
+    Switch# reload
+    Proceed with reload? [confirm] y
+    System configuration has been modified. Save? [yes/no]: n
+    ```
 
 ### Viewing status of connected interfaces
 
@@ -369,9 +367,9 @@ Switch# clear mac address-table dynamic
 
 ### View routing table
 
-**C**: Direct Connection
-**L**: Local Connection
-**R**: Remote Connection
+> **C**: Direct Connection
+> **L**: Local Connection
+> **R**: Remote Connection
 
 ``` bash
 Router# show ip route
@@ -449,7 +447,7 @@ C:\Users\USERNAME\> |
 
 ### Viewing ARP table of the computer
 
-**ff-ff-ff-ff-ff-ff**: Multicast or broadcast.
+> **ff-ff-ff-ff-ff-ff**: Multicast or broadcast.
 
 ``` bash
 C:\Users\USERNAME\> arp -a
@@ -465,3 +463,7 @@ Interface: 25.63.150.45 --- 0xa
 
 C:\Users\USERNAME\> |
 ```
+
+---
+
+*By Adil Atalay Hamamcıoğlu, a Cybersecurity Engineering student at Tallinn University of Technology, 2019 - 2023*
