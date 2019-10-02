@@ -387,7 +387,7 @@ Router# show ip route
 ### Viewing interfaces, IP, MAC address, gateway, subnet mask
 
 ``` bash
-C:\\Users\\USERNAME\\> ipconfig /all
+C:\Users\USERNAME\> ipconfig /all
 
 Windows IP Configuration
 
@@ -416,13 +416,13 @@ Ethernet adapter Ethernet:
    DNS Servers . . . . . . . . . . . : 1.1.1.1
    NetBIOS over Tcpip. . . . . . . . : Enabled
 
-C:\\Users\\USERNAME\\> |
+C:\Users\USERNAME\> |
 ```
 
 ### Pinging
 
 ``` bash
-C:\\Users\\USERNAME\\> ping IP_ADDRESS_OR_SITE
+C:\Users\USERNAME\> ping IP_ADDRESS_OR_SITE
 
 Pinging IP_ADDRESS_OR_SITE [IP_OF_DESTINATION] with 32 bytes of data:
 Reply from IP_OF_DESTINATION: bytes=32 time=15ms TTL=54
@@ -435,7 +435,7 @@ Ping statistics for IP_OF_DESTINATION:
 Approximate round trip times in milli-seconds:
     Minimum = 11ms, Maximum = 15ms, Average = 13ms
 
-C:\\Users\\USERNAME\\> |
+C:\Users\USERNAME\> |
 ```
 
 ### Viewing ARP table
@@ -443,7 +443,7 @@ C:\\Users\\USERNAME\\> |
 **ff-ff-ff-ff-ff-ff**: Multicast or broadcast.
 
 ``` bash
-C:\\Users\\USERNAME\\> arp -a
+C:\Users\USERNAME\> arp -a
 
 Interface: 25.63.150.45 --- 0xa
   Internet Address      Physical Address      Type
@@ -454,5 +454,5 @@ Interface: 25.63.150.45 --- 0xa
   239.255.255.250       01-00-5e-7f-ff-fa     static
   255.255.255.255       ff-ff-ff-ff-ff-ff     static
 
-C:\\Users\\USERNAME\\> |
+C:\Users\USERNAME\> |
 ```
