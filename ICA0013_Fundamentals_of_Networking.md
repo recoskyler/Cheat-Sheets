@@ -79,8 +79,8 @@ Switch uptime is 2 minutesSystem returned to ROM by power-onSystem image file is
 
 ### Enabling and disabling "EXEC Mode"
 
-**"Switch> |"** --> No EXEC Mode
-**"Switch# |"** --> EXEC Mode
+- **"Switch>"** --> No EXEC Mode
+- **"Switch#"** --> EXEC Mode
 
 ``` bash
 Switch> enable
@@ -115,8 +115,8 @@ Switch# clock set 14:56:24 Oct 02 2019
 
 ### Configuring terminal
 
-**"Switch# |"** --> Not in configure mode
-**"Switch(config)# |"** --> In configure mode
+- **"Switch#"** --> Not in configure mode
+- **"Switch(config)#"** --> In configure mode
 
 ``` bash
 Switch# conf t
