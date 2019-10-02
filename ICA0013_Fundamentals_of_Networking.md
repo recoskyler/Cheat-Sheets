@@ -1,5 +1,8 @@
 # ICA0013 Fundamentals Of Networking
 
+Cheat sheet for Cisco Networking Labs.
+Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
+
 - [ICA0013 Fundamentals Of Networking](#ica0013-fundamentals-of-networking)
   - [SWITCH/ROUTER](#switchrouter)
     - [Connecting to a switch/router using console port](#connecting-to-a-switchrouter-using-console-port)
