@@ -24,16 +24,17 @@
     - [Resetting configuration](#resetting-configuration)
     - [Viewing status of connected interfaces](#viewing-status-of-connected-interfaces)
     - [Viewing MAC address of switch](#viewing-mac-address-of-switch)
-    - [Viewing ARP table](#viewing-arp-table)
+    - [Viewing ARP table of the switch/router](#viewing-arp-table-of-the-switchrouter)
     - [Viewing MAC address table](#viewing-mac-address-table)
     - [View interface status](#view-interface-status)
     - [Clear MAC address table](#clear-mac-address-table)
     - [View routing table](#view-routing-table)
   - [COMPUTER](#computer)
+    - [Configuring IPv4 address](#configuring-ipv4-address)
     - [Opening Command Prompt](#opening-command-prompt)
     - [Viewing interfaces, IP, MAC address, gateway, subnet mask](#viewing-interfaces-ip-mac-address-gateway-subnet-mask)
     - [Pinging](#pinging)
-    - [Viewing ARP table](#viewing-arp-table-1)
+    - [Viewing ARP table of the computer](#viewing-arp-table-of-the-computer)
   
 ## SWITCH/ROUTER
 
@@ -309,7 +310,7 @@ Vlan1 is up, line protocol is up
 <output omitted>
 ```
 
-### Viewing ARP table
+### Viewing ARP table of the switch/router
 
 ``` bash
 Switch# show arp
@@ -378,6 +379,14 @@ Router# show ip route
 
 ## COMPUTER
 
+### Configuring IPv4 address
+
+1. Open **"Control Panel"**.
+2. Go to **"Network and Internet" > "Network and Sharing Center" > ADAPTER_NAME > "Properties" > "Internet Protocol Version 4 (TCP/IPv4)" > "Properties"**.
+3. Select **"Use the following IP address:"**.
+4. Type the IP, subnet mask, [gateway].
+5. Press *"OK"*.
+
 ### Opening Command Prompt
 
 1. Press *WIN* + *R*.
@@ -438,7 +447,7 @@ Approximate round trip times in milli-seconds:
 C:\Users\USERNAME\> |
 ```
 
-### Viewing ARP table
+### Viewing ARP table of the computer
 
 **ff-ff-ff-ff-ff-ff**: Multicast or broadcast.
 
