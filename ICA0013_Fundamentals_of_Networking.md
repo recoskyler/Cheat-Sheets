@@ -224,6 +224,7 @@ Switch(config)# |
 > *"no shut"* command enables the interface.
 > Replace *"ip"* with *"ipv6"* to set the IPv6 instead of IPv4.
 > Add *"link-local"* at the end (of IPv6 set command) to set Link-Local address.
+> If it doesn't work on 2960 Switch, take a look at [Enabling support for IPv6 on 2960 Switch Database Manager](#enabling-support-for-ipv6-on-2960-switch-database-manager).
 
 ``` bash
 Switch(config)# interface INTERFACE_NAME INTERFACE_NO
