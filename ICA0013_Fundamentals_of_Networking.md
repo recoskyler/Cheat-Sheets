@@ -19,9 +19,12 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
         - [EXEC Mode](#exec-mode)
         - [TELNET/SSH](#telnetssh)
         - [Console connection](#console-connection)
+      - [Encrypting passwords](#encrypting-passwords)
       - [Disabling DNS Lookup](#disabling-dns-lookup)
       - [Setting a MOTD banner](#setting-a-motd-banner)
       - [Configuring an interface](#configuring-an-interface)
+      - [Enabling IPv6 uni-cast routing](#enabling-ipv6-uni-cast-routing)
+    - [Enabling support for IPv6 on 2960 Switch Database Manager](#enabling-support-for-ipv6-on-2960-switch-database-manager)
     - [Viewing running configuration](#viewing-running-configuration)
     - [Saving configuration](#saving-configuration)
     - [Resetting configuration](#resetting-configuration)
@@ -30,10 +33,11 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
     - [Viewing ARP table of the switch/router](#viewing-arp-table-of-the-switchrouter)
     - [Viewing MAC address table](#viewing-mac-address-table)
     - [View interface status](#view-interface-status)
+    - [View IP address status of interface](#view-ip-address-status-of-interface)
     - [Clear MAC address table](#clear-mac-address-table)
     - [View routing table](#view-routing-table)
   - [COMPUTER](#computer)
-    - [Configuring IPv4 address](#configuring-ipv4-address)
+    - [Configuring IPv4/IPv6 address](#configuring-ipv4ipv6-address)
     - [Opening Command Prompt](#opening-command-prompt)
     - [Viewing interfaces, IP, MAC address, gateway, subnet mask](#viewing-interfaces-ip-mac-address-gateway-subnet-mask)
     - [Pinging](#pinging)
@@ -192,6 +196,14 @@ Switch(config-line)# exit
 Switch(config)# |
 ```
 
+#### Encrypting passwords
+
+``` bash
+Switch(config)# service password-encryption
+Switch(config)# exit
+Switch# |
+```
+
 #### Disabling DNS Lookup
 
 ``` bash
@@ -210,6 +222,8 @@ Switch(config)# |
 #### Configuring an interface
 
 > *"no shut"* command enables the interface.
+> Replace *"ip"* with *"ipv6"* to set the IPv6 instead of IPv4.
+> Add *"link-local"* at the end (of IPv6 set command) to set Link-Local address.
 
 ``` bash
 Switch(config)# interface INTERFACE_NAME INTERFACE_NO
@@ -225,6 +239,23 @@ Switch(config-if)# ip address 192.168.1.0 255.255.255.0
 Switch(config-if)# no shut
 Switch(config-if)# exit
 Switch(config)# |
+```
+
+#### Enabling IPv6 uni-cast routing
+
+``` bash
+Router(config)# ipv6 unicast-routing
+Router(config)# exit
+Router# |
+```
+
+### Enabling support for IPv6 on 2960 Switch Database Manager
+
+> Do this if the switch gives an error when you try to set IPv6 address in config mode.
+
+``` bash
+Switch# sdm prefer dual-ipv4-and-ipv6 default
+Switch# reload
 ```
 
 ### Viewing running configuration
@@ -357,6 +388,29 @@ Total Mac Addresses for this criterion: 21
 
 ``` bash
 Switch# show interface F0/1
+```
+
+### View IP address status of interface
+
+> Replace *"ip"* with *"ipv6"* to view the IPv6 config instead of IPv4 config.
+
+``` bash
+Router# show ip interface INTERFACE_NAME
+```
+
+``` bash
+Router# show ipv6 interface g0/0
+GigabitEthernet0/0 is up, line protocol is up
+  IPv6 is enabled, link-local address is FE80::1
+  No Virtual link-local address(es):
+    Global unicast address(es):
+      2001:DB8:ACAD:A::1, subnet is 2001:DB8:ACAD:A::/64 [EUI]
+    Joined group address(es):
+      FF02::1
+      FF02::2
+      FF02::1:FF00:1
+    MTU is 1500 bytes
+<output omitted>
 ```
 
 ### Clear MAC address table
