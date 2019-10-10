@@ -379,12 +379,12 @@ Router# show ip route
 
 ## COMPUTER
 
-### Configuring IPv4 address
+### Configuring IPv4/IPv6 address
 
 1. Open **"Control Panel"**.
-2. Go to **"Network and Internet" > "Network and Sharing Center" > ADAPTER_NAME > "Properties" > "Internet Protocol Version 4 (TCP/IPv4)" > "Properties"**.
+2. Go to **"Network and Internet" > "Network and Sharing Center" > ADAPTER_NAME > "Properties" > "Internet Protocol Version 4 (TCP/IPv4)" / "Internet Protocol Version 6 (TCP/IPv6)" > "Properties"**.
 3. Select **"Use the following IP address:"**.
-4. Type the IP, subnet mask, [gateway].
+4. Type the IP, subnet mask/metric, [gateway].
 5. Press *"OK"*.
 
 ### Opening Command Prompt
