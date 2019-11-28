@@ -95,6 +95,7 @@ Switch uptime is 2 minutesSystem returned to ROM by power-onSystem image file is
 ### Enabling and disabling "EXEC Mode"
 
 > **"Switch>"** --> No EXEC Mode
+> 
 > **"Switch#"** --> EXEC Mode
 
 ``` bash
@@ -131,6 +132,7 @@ Switch# clock set 14:56:24 Oct 02 2019
 ### Configuring terminal
 
 > **"Switch#"** --> Not in configure mode
+> 
 > **"Switch(config)#"** --> In configure mode
 
 ``` bash
@@ -229,8 +231,11 @@ Switch(config)# |
 #### Configuring an interface
 
 > *"no shut"* command enables the interface.
+> 
 > Replace *"ip"* with *"ipv6"* to set the IPv6 instead of IPv4.
+> 
 > Add *"link-local"* at the end (of IPv6 set command) to set Link-Local address.
+> 
 > If it doesn't work on 2960 Switch, take a look at [Enabling support for IPv6 on 2960 Switch Database Manager](#enabling-support-for-ipv6-on-2960-switch-database-manager).
 
 ``` bash
@@ -252,8 +257,11 @@ Switch(config)# |
 #### Enabling/Disabling RIP routing
 
 > *"router rip"* to enable
+> 
 > *"no router rip"* to disable
+> 
 > *"version VERSION"* -> *"version 2"* to set the RIP version, don't specify to use default version, 1
+> 
 > Configuring *"version 1"* enables RIPv1 only, while configuring *"no version"* returns the router to the default setting of sending version 1 updates but listening for version 1 and version 2 updates.
 
 ```
@@ -304,6 +312,7 @@ R1(config-router)# network 192.168.1.0
 #### Enabling/Disabling Auto-Summarization (RIPv2 Only)
 
 > *"auto-summary"* to enable
+> 
 > *"no auto-summary"* to disable
 
 ```
@@ -335,7 +344,9 @@ R1(config)# ip route 192.168.1.1 255.255.255.0 192.168.5.10
 #### Setting up default route
 
 > In static routing, use *"ip route 0.0.0.0 0.0.0.0"*
+> 
 > Replace *"ip"* with *"ipv6"* to set up IPv6 default route.
+> 
 > In IPv6, *"0.0.0.0 0.0.0.0"* becomes *"::/0"*
 
 ```
@@ -559,13 +570,19 @@ Switch# clear mac address-table dynamic
 ### View routing table
 
 > **C**: Direct Connection
+> 
 > **L**: Local Connection
+> 
 > **R**: Remote Connection
+> 
 > **S**: Static Route
+> 
 > **D**: Automatically learned route using EIGRP routing protocol
+> 
 > **O**: Automatically learned route using OSPF routing protocol
 > 
 > If there is the symbol **"*"** next to the route source identifier (C/L/R/S/D/O), it means that it was manually configured
+> 
 > Replace *"ip"* with *"ipv6"* to view IPv6 routing table.
 
 ``` bash
