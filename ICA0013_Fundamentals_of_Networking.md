@@ -1,9 +1,9 @@
-# ICA0013 Fundamentals Of Networking
+# Cisco IOS (Routers and Switches) Cheat Sheet
 
-Cheat sheet for Cisco Networking Labs.
+Cheat sheet for Cisco Networking Labs, and Cisco IOS.
 Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
 
-- [ICA0013 Fundamentals Of Networking](#ica0013-fundamentals-of-networking)
+- [Cisco IOS (Routers and Switches) Cheat Sheet](#cisco-ios-routers-and-switches-cheat-sheet)
   - [SWITCH/ROUTER](#switchrouter)
     - [Connecting to a switch/router using console port](#connecting-to-a-switchrouter-using-console-port)
       - [Setting up physical connection](#setting-up-physical-connection)
@@ -20,9 +20,22 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
         - [TELNET/SSH](#telnetssh)
         - [Console connection](#console-connection)
       - [Encrypting passwords](#encrypting-passwords)
+      - [Setting SSH password](#setting-ssh-password)
+      - [Allow only SSH connections](#allow-only-ssh-connections)
+      - [Generating RSA crypto key](#generating-rsa-crypto-key)
+      - [Changing SSH time-out](#changing-ssh-time-out)
+      - [Changing SSH authentication retry limit](#changing-ssh-authentication-retry-limit)
+      - [Assigning ports to an interface](#assigning-ports-to-an-interface)
+      - [Enabling port security](#enabling-port-security)
+      - [Assign MAC to port (port security)](#assign-mac-to-port-port-security)
+      - [Disabling HTTP server](#disabling-http-server)
       - [Disabling DNS Lookup](#disabling-dns-lookup)
       - [Setting a MOTD banner](#setting-a-motd-banner)
+      - [Enabling logging](#enabling-logging)
       - [Configuring an interface](#configuring-an-interface)
+      - [Configuring a range of interfaces](#configuring-a-range-of-interfaces)
+      - [Naming an interface](#naming-an-interface)
+      - [Configuring a new MAC address for an interface](#configuring-a-new-mac-address-for-an-interface)
       - [Enabling/Disabling RIP routing](#enablingdisabling-rip-routing)
       - [Setting an interface to be passive (RIP)](#setting-an-interface-to-be-passive-rip)
       - [Advertising networks (RIP)](#advertising-networks-rip)
@@ -47,6 +60,9 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
     - [Configuring IPv4/IPv6 address](#configuring-ipv4ipv6-address)
     - [Opening Command Prompt](#opening-command-prompt)
     - [Viewing interfaces, IP, MAC address, gateway, subnet mask](#viewing-interfaces-ip-mac-address-gateway-subnet-mask)
+    - [Viewing port security](#viewing-port-security)
+      - [Of interface](#of-interface)
+      - [Of interfaces](#of-interfaces)
     - [Pinging](#pinging)
     - [Viewing ARP table of the computer](#viewing-arp-table-of-the-computer)
   - [About](#about)
@@ -72,13 +88,13 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
 5. If nothing shows up, hit *ENTER* a couple of times.
 6. Say *no* to the prompt.
 
-``` bash
+```
 Would you like to enter the initial configuration dialog? [yes/no]: n
 ```
 
 ### Viewing switch/router info
 
-``` bash
+```
 Switch> show version
 Cisco IOS Software, C2960 Software (C2960-LANBASEK9-M), Version 15.0(2)SE, RELEASE SOFTWARE (fc1)
 Technical Support: http://www.cisco.com/techsupport
@@ -98,17 +114,17 @@ Switch uptime is 2 minutesSystem returned to ROM by power-onSystem image file is
 > 
 > **"Switch#"** --> EXEC Mode
 
-``` bash
+```
 Switch> enable
 Switch# |
 ```
 
-``` bash
+```
 Switch# disable
 Switch> |
 ```
 
-``` bash
+```
 Switch# exit
 Switch> |
 ```
@@ -117,14 +133,14 @@ Switch> |
 
 #### Viewing time
 
-``` bash
+```
 Switch> show clock
 *00:30:05.261 UTC Mon Mar 1 1993
 ```
 
 #### Setting time
 
-``` bash
+```
 Switch# clock set 14:56:24 Oct 02 2019
 *Oct 02 14:56:24.000: %SYS-6-CLOCKUPDATE: System clock has been updated from 00:31:43 UTC Mon Mar 1 1993 to 14:56:24 UTC Wed Oct 02 2019, configured from console by console.
 ```
@@ -135,24 +151,24 @@ Switch# clock set 14:56:24 Oct 02 2019
 > 
 > **"Switch(config)#"** --> In configure mode
 
-``` bash
+```
 Switch# conf t
 Switch(config)# |
 ```
 
-``` bash
+```
 Switch(config)# exit
 Switch# |
 ```
 
 #### Setting hostname
 
-``` bash
+```
 Switch(config)# hostname NAME
 NAME(config)#
 ```
 
-``` bash
+```
 Switch(config)# hostname S1
 S1(config)#
 ```
@@ -161,17 +177,17 @@ S1(config)#
 
 ##### EXEC Mode
 
-``` bash
+```
 Switch(config)# enable secret PASSWORD
 ```
 
-``` bash
+```
 Switch(config)# enable secret thisismypassword
 ```
 
 ##### TELNET/SSH
 
-``` bash
+```
 Switch(config)# line vty 0 4
 Switch(config-line)# password PASSWORD
 Switch(config-line)# login
@@ -179,7 +195,7 @@ Switch(config-line)# exit
 Switch(config)# |
 ```
 
-``` bash
+```
 Switch(config)# line vty 0 4
 Switch(config-line)# password thisismypassword
 Switch(config-line)# login
@@ -189,7 +205,7 @@ Switch(config)# |
 
 ##### Console connection
 
-``` bash
+```
 Switch(config)# line con 0
 Switch(config-line)# password PASSWORD
 Switch(config-line)# login
@@ -197,7 +213,7 @@ Switch(config-line)# exit
 Switch(config)# |
 ```
 
-``` bash
+```
 Switch(config)# line con 0
 Switch(config-line)# password thisismypassword
 Switch(config-line)# login
@@ -207,51 +223,189 @@ Switch(config)# |
 
 #### Encrypting passwords
 
-``` bash
+```
 Switch(config)# service password-encryption
 Switch(config)# exit
 Switch# |
 ```
 
+#### Setting SSH password
+
+```
+S1(config)# username USERNAME privilege PRIVILEGE secret PASSWORD
+```
+
+```
+S1(config)# username admin privilege 15 secret myP4ssw0rd
+```
+
+#### Allow only SSH connections
+
+```
+S1(config)# line vty 0 15
+S1(config-line)# transport input ssh
+S1(config-line)# login local
+```
+
+#### Generating RSA crypto key
+
+```
+S1(config)# crypto key generate rsa modulus MODULUS
+```
+
+```
+S1(config)# crypto key generate rsa modulus 1024
+```
+
+#### Changing SSH time-out
+
+```
+S1(config)# ip ssh time-out TIME_OUT
+```
+
+```
+S1(config)# ip ssh time-out 75
+```
+
+#### Changing SSH authentication retry limit
+
+```
+S1(config)# ip ssh authentication-retries LIMIT
+```
+
+```
+S1(config)# ip ssh authentication-retries 2
+```
+
+#### Assigning ports to an interface
+
+```
+S1(config)# interface PORT
+S1(config-if)# switchport mode access
+S1(config-if)# switchport access INTERFACE_NAME INTERFACE_NO
+```
+
+```
+S1(config)# interface f0/5
+S1(config-if)# switchport mode access
+S1(config-if)# switchport access vlan 99
+```
+
+#### Enabling port security
+
+> Entering the switchport port-security command sets the maximum MAC addresses to 1 and the violation action to shutdown. The switchport port-security maximum and switchport port-security violation commands can be used to change the default behavior.
+
+```
+S1(config-if)# switchport port-security
+```
+
+#### Assign MAC to port (port security)
+
+```
+S1(config-if)# switchport port-security mac-address MAC_ADDRESS
+```
+
+```
+S1(config-if)# switchport port-security mac-address ABCD.EFAB.CDEF
+```
+
+#### Disabling HTTP server
+
+> Used for web interface/management, but it's not secure, so we disable it.
+
+```
+S1(config)# no ip http server
+```
+
 #### Disabling DNS Lookup
 
-``` bash
+```
 Switch(config)# no ip domain-lookup
 ```
 
 #### Setting a MOTD banner
 
-``` bash
+```
 Switch(config)# banner motd #
 Enter TEXT message. End with the character '#'.
 Unauthorized access is strictly prohibited and prosecuted to the full extent of the law. #
 Switch(config)# |
 ```
 
+#### Enabling logging
+
+```
+S1(config)# logging synchronous
+```
+
 #### Configuring an interface
 
-> *"no shut"* command enables the interface.
+> *"no shut"* command enables the interface, *"shut"* command disables the interface.
 > 
 > Replace *"ip"* with *"ipv6"* to set the IPv6 instead of IPv4.
 > 
 > Add *"link-local"* at the end (of IPv6 set command) to set Link-Local address.
 > 
 > If it doesn't work on 2960 Switch, take a look at [Enabling support for IPv6 on 2960 Switch Database Manager](#enabling-support-for-ipv6-on-2960-switch-database-manager).
+>
+> Configure **"vlan 99"** to enable web interface.
 
-``` bash
+```
 Switch(config)# interface INTERFACE_NAME INTERFACE_NO
 Switch(config-if)# ip address IP_ADDRESS SUBNET_MASK
 Switch(config-if)# no shut
-Switch(config-if)# exit
-Switch(config)# |
 ```
 
-``` bash
+```
 Switch(config)# interface gigabitethernet 0/0
 Switch(config-if)# ip address 192.168.1.0 255.255.255.0
 Switch(config-if)# no shut
-Switch(config-if)# exit
-Switch(config)# |
+```
+
+#### Configuring a range of interfaces
+
+```
+Switch(config)# interface range INTERFACE_NAME INTERFACE_NO_START - INTERFACE_NO_END
+```
+
+```
+Switch(config)# interface range f0/0 - 16
+```
+
+#### Naming an interface
+
+```
+S1(config)# INTERFACE_NAME INTERFACE_NO
+S1(config-INTERFACE_NAME)# name NAME
+```
+
+```
+S1(config)# vlan 99
+S1(config-vlan)# name Management
+```
+
+#### Configuring a new MAC address for an interface
+
+```
+S1(config)# interface INTERFACE_NAME INTERFACE_NO
+S1(config-if)# mac-address MAC_ADDRESS
+```
+
+```
+S1(config)# interface vlan 99
+S1(config-if)# mac-address ABCD.EFAB.CDEF
+```
+
+> Use *"no mac-address"* command to remove hard-coded MAC address.
+
+```
+S1(config)# interface INTERFACE_NAME INTERFACE_NO
+S1(config-if)# no mac-address MAC_ADDRESS
+```
+
+```
+S1(config)# interface vlan 99
+S1(config-if)# no mac-address ABCD.EFAB.CDEF
 ```
 
 #### Enabling/Disabling RIP routing
@@ -378,7 +532,7 @@ R1(config-router)# default-information originate
 
 #### Enabling IPv6 uni-cast routing
 
-``` bash
+```
 Router(config)# ipv6 unicast-routing
 ```
 
@@ -386,7 +540,7 @@ Router(config)# ipv6 unicast-routing
 
 > Do this if the switch gives an error when you try to set IPv6 address in config mode.
 
-``` bash
+```
 Switch# sdm prefer dual-ipv4-and-ipv6 default
 Switch# reload
 >>>>>>> 4f2768ae2c230073f420caf9ae04145c3b91b36a
@@ -394,7 +548,7 @@ Switch# reload
 
 ### Viewing running configuration
 
-``` bash
+```
 S1# show run
 Building configuration...
 Current configuration : 1508 bytes
@@ -414,7 +568,7 @@ hostname S1
 
 ### Saving configuration
 
-``` bash
+```
 Switch# copy running-config startup-config
 Destination filename [startup-config]? [Enter]
 Building configuration...
@@ -426,7 +580,7 @@ Switch# |
 
 1. Delete VLAN configuration.
 
-    ``` bash
+    ```
     Switch# delete vlan.dat
     Delete filename [vlan.dat]? y
     Delete flash:/vlan.dat? [confirm] y
@@ -435,7 +589,7 @@ Switch# |
 
 2. Erase startup-config.
 
-    ``` bash
+    ```
     Switch# erase startup-config
     Erasing the nvram filesystem will remove all configuration files! Continue? [confirm] y
     [OK]
@@ -445,7 +599,7 @@ Switch# |
 
 3. Reload the switch.
 
-    ``` bash
+    ```
     Switch# reload
     Proceed with reload? [confirm] y
     System configuration has been modified. Save? [yes/no]: n
@@ -453,7 +607,7 @@ Switch# |
 
 ### Viewing status of connected interfaces
 
-``` bash
+```
 Switch# show ip interface brief
 Interface              IP-Address      OK? Method Status                Protocol
 Vlan1                  unassigned      YES unset  up                    up
@@ -479,7 +633,7 @@ Routing Protocol is "rip"
 
 ### Viewing MAC address of switch
 
-``` bash
+```
 Switch# show interfaces vlan 1
 Vlan1 is up, line protocol is up
     Hardware is EtherSVI, address is 001b.0c6d.8f40 (bia 001b.0c6d.8f40)
@@ -489,7 +643,7 @@ Vlan1 is up, line protocol is up
 
 ### Viewing ARP table of the switch/router
 
-``` bash
+```
 Switch# show arp
 Protocol  Address          Age (min)  Hardware Addr   Type   Interface
 Internet  192.168.1.1             -   001b.0c6d.8f40  ARPA   Vlan1
@@ -500,7 +654,7 @@ Internet  192.168.1.3             0   5c26.0a24.2a60  ARPA   Vlan1
 
 Use [MAC Vendor Lookup](https://www.macvendorlookup.com/) to lookup the vendor of the device using the MAC address.
 
-``` bash
+```
 Switch# show mac address-table
           Mac Address Table
 -------------------------------------------
@@ -532,7 +686,7 @@ Total Mac Addresses for this criterion: 21
 
 ### View interface status
 
-``` bash
+```
 Switch# show interface F0/1
 ```
 
@@ -540,11 +694,11 @@ Switch# show interface F0/1
 
 > Replace *"ip"* with *"ipv6"* to view the IPv6 config instead of IPv4 config.
 
-``` bash
-Router# show ip interface INTERFACE_NAME
+```
+Router# show ip interface INTERFACE_NAME INTERFACE_NO
 ```
 
-``` bash
+```
 Router# show ipv6 interface g0/0
 GigabitEthernet0/0 is up, line protocol is up
   IPv6 is enabled, link-local address is FE80::1
@@ -561,7 +715,7 @@ GigabitEthernet0/0 is up, line protocol is up
 
 ### Clear MAC address table
 
-``` bash
+```
 Switch# clear mac address-table dynamic
 ```
 
@@ -585,7 +739,7 @@ Switch# clear mac address-table dynamic
 > 
 > Replace *"ip"* with *"ipv6"* to view IPv6 routing table.
 
-``` bash
+```
 Router# show ip route
 ```
 
@@ -609,7 +763,7 @@ Router# show ip route
 
 ### Viewing interfaces, IP, MAC address, gateway, subnet mask
 
-``` bash
+```
 C:\Users\USERNAME\> ipconfig /all
 
 Windows IP Configuration
@@ -642,9 +796,36 @@ Ethernet adapter Ethernet:
 C:\Users\USERNAME\> |
 ```
 
+### Viewing port security
+
+#### Of interface
+
+```
+S1# show port-security INTERFACE_NAME INTERFACE_NO
+```
+
+```
+S1# show port-security interface f0/5
+```
+
+#### Of interfaces
+
+```
+S1# show port-security address
+                Secure Mac Address Table
+------------------------------------------------------------------------
+Vlan     Mac Address       Type                 Ports      Remaining Age
+                                                            (mins)
+----     -----------       ----                 -----      -------------
+  99     30f7.0da3.1821    SecureConfigured     Fa0/5
+------------------------------------------------------------------------
+Total Addresses in System (excluding one mac per port)     :0
+Max Addresses limit in System (excluding one mac per port) :8192
+```
+
 ### Pinging
 
-``` bash
+```
 C:\Users\USERNAME\> ping IP_ADDRESS_OR_SITE
 
 Pinging IP_ADDRESS_OR_SITE [IP_OF_DESTINATION] with 32 bytes of data:
@@ -665,7 +846,7 @@ C:\Users\USERNAME\> |
 
 > **ff-ff-ff-ff-ff-ff**: Multicast or broadcast.
 
-``` bash
+```
 C:\Users\USERNAME\> arp -a
 
 Interface: 25.63.150.45 --- 0xa
