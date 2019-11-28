@@ -564,6 +564,7 @@ Switch# clear mac address-table dynamic
 > **S**: Static Route
 > **D**: Automatically learned route using EIGRP routing protocol
 > **O**: Automatically learned route using OSPF routing protocol
+> 
 > If there is the symbol **"*"** next to the route source identifier (C/L/R/S/D/O), it means that it was manually configured
 > Replace *"ip"* with *"ipv6"* to view IPv6 routing table.
 
