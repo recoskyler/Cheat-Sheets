@@ -571,7 +571,7 @@ Switch# clear mac address-table dynamic
 Router# show ip route
 ```
 
-![Routing entry image](https://imgur.com/V6RKYCW)
+![Routing entry image](https://i.imgur.com/V6RKYCW.png)
 
 ## COMPUTER
 
