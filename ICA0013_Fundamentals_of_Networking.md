@@ -22,10 +22,17 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
       - [Disabling DNS Lookup](#disabling-dns-lookup)
       - [Setting a MOTD banner](#setting-a-motd-banner)
       - [Configuring an interface](#configuring-an-interface)
+      - [Enabling/Disabling RIP routing](#enablingdisabling-rip-routing)
+      - [Setting an interface to be passive (RIP)](#setting-an-interface-to-be-passive-rip)
+      - [Advertising networks (RIP)](#advertising-networks-rip)
+      - [Enabling/Disabling Auto-Summarization (RIPv2 Only)](#enablingdisabling-auto-summarization-ripv2-only)
+      - [Setting up a static route](#setting-up-a-static-route)
+      - [Setting up default route](#setting-up-default-route)
     - [Viewing running configuration](#viewing-running-configuration)
     - [Saving configuration](#saving-configuration)
     - [Resetting configuration](#resetting-configuration)
     - [Viewing status of connected interfaces](#viewing-status-of-connected-interfaces)
+    - [Viewing routing protocol](#viewing-routing-protocol)
     - [Viewing MAC address of switch](#viewing-mac-address-of-switch)
     - [Viewing ARP table of the switch/router](#viewing-arp-table-of-the-switchrouter)
     - [Viewing MAC address table](#viewing-mac-address-table)
@@ -227,6 +234,122 @@ Switch(config-if)# exit
 Switch(config)# |
 ```
 
+#### Enabling/Disabling RIP routing
+
+> *"router rip"* to enable
+> *"no router rip"* to disable
+> *"version VERSION"* -> *"version 2"* to set the RIP version, don't specify to use default version, 1
+> Configuring *"version 1"* enables RIPv1 only, while configuring *"no version"* returns the router to the default setting of sending version 1 updates but listening for version 1 and version 2 updates.
+
+```
+R1(config)# router rip
+R1(config-router)# version 2
+```
+
+#### Setting an interface to be passive (RIP)
+
+By default, RIP updates are forwarded out all RIP-enabled interfaces. However, RIP updates really only need to be sent out interfaces that are connected to other RIP enabled routers.
+
+Use this to stop routing updates out the specified interface. This process prevents unnecessary routing traffic on the LAN. However, the network that the specified interface belongs to is still advertised in routing updates that are sent out across other interfaces.
+
+```
+R1(config-router)# passive-interface INTERFACE_NAME INTERFACE_NO
+```
+
+```
+R1(config-router)# passive-interface gigabitethernet 0/0
+```
+
+> As an alternative, all interfaces can be made passive using the *"passive-interface"* default command.
+
+```
+R1(config-router)# passive-interface default
+```
+
+> Interfaces that should not be passive can be re-enabled using the *"no passive-interface"* command.
+
+```
+R1(config-router)# no passive-interface INTERFACE_NAME INTERFACE_NO
+```
+
+#### Advertising networks (RIP)
+
+Use this to enable RIP routing on a network.
+
+> An ip address, such as 192.168.1.32 with the subnet mask 255.255.255.0, will be automatically registered as 192.168.1.0
+
+```
+R1(config-router)# network IP_ADDRESS
+```
+
+```
+R1(config-router)# network 192.168.1.0
+```
+
+#### Enabling/Disabling Auto-Summarization (RIPv2 Only)
+
+> *"auto-summary"* to enable
+> *"no auto-summary"* to disable
+
+```
+R1(config-router)# no auto-summary
+```
+
+#### Setting up a static route
+
+You can use just one, or both interface and ip as destination.
+
+> Replace *"ip"* with *"ipv6"* to set up IPv6 static route
+
+```
+R1(config)# ip route IP_ADDRESS SUBNET_MASK [INTERFACE_NAME INTERFACE_NO] [DESTINATION_IP_ADDRESS]
+```
+
+```
+R1(config)# ip route 192.168.1.1 255.255.255.0 g0/0 192.168.5.10
+```
+
+```
+R1(config)# ip route 192.168.1.1 255.255.255.0 g0/0
+```
+
+```
+R1(config)# ip route 192.168.1.1 255.255.255.0 192.168.5.10
+```
+
+#### Setting up default route
+
+> In static routing, use *"ip route 0.0.0.0 0.0.0.0"*
+> Replace *"ip"* with *"ipv6"* to set up IPv6 default route.
+> In IPv6, *"0.0.0.0 0.0.0.0"* becomes *"::/0"*
+
+```
+R1(config)# ip route 0.0.0.0 0.0.0.0 [INTERFACE_NAME INTERFACE_NO] [DESTINATION_IP_ADDRESS]
+```
+
+```
+R1(config)# ip route 0.0.0.0 0.0.0.0 g0/0 192.168.5.10
+```
+
+```
+R1(config)# ipv6 route ::/0 g0/0 192.168.5.10
+```
+
+```
+R1(config)# ip route 0.0.0.0 0.0.0.0 g0/0
+```
+
+```
+R1(config)# ip route 0.0.0.0 0.0.0.0 192.168.5.10
+```
+
+> In dynamic routing, use *"default-information originate"*. This instructs R1 to originate default information, by propagating the static default route in RIP updates.
+
+```
+R1(config)# router rip
+R1(config-router)# default-information originate
+```
+
 ### Viewing running configuration
 
 ``` bash
@@ -297,6 +420,18 @@ FastEthernet0/2        unassigned      YES unset  down                  down
 FastEthernet0/3        unassigned      YES unset  down                  down
 FastEthernet0/4        unassigned      YES unset  down                  down
 FastEthernet0/5        unassigned      YES unset  down                  down
+<output omitted>
+```
+
+### Viewing routing protocol
+
+Use this to verify RIP routing.
+
+```
+R1# show ip protocols
+*** IP Routing is NSF aware ***
+
+Routing Protocol is "rip"
 <output omitted>
 ```
 
@@ -372,10 +507,17 @@ Switch# clear mac address-table dynamic
 > **C**: Direct Connection
 > **L**: Local Connection
 > **R**: Remote Connection
+> **S**: Static Route
+> **D**: Automatically learned route using EIGRP routing protocol
+> **O**: Automatically learned route using OSPF routing protocol
+> If there is the symbol **"*"** next to the route source identifier (C/L/R/S/D/O), it means that it was manually configured
+> Replace *"ip"* with *"ipv6"* to view IPv6 routing table.
 
 ``` bash
 Router# show ip route
 ```
+
+![Routing entry image](https://imgur.com/V6RKYCW)
 
 ## COMPUTER
 
@@ -470,5 +612,7 @@ C:\Users\USERNAME\> |
 
 ## About
 
-By Adil Atalay Hamamcıoğlu, a Cybersecurity Engineering student at Tallinn University of Technology, 2019 - 2023.
+By Adil Atalay Hamamcıoğlu, a cyber security Engineering student at Tallinn University of Technology, 2019 - 2023.
 Made this cheat-sheet to not to suffer in Cisco Networking Labs.
+
+Info and images are from Cisco Networking Academy course.
