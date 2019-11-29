@@ -8,10 +8,10 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
     - [Connecting to a switch/router using console port](#connecting-to-a-switchrouter-using-console-port)
       - [Setting up physical connection](#setting-up-physical-connection)
       - [Using PuTTY/TeraTerm to connect to a switch/router](#using-puttyteraterm-to-connect-to-a-switchrouter)
-    - [Viewing switch/router info](#viewing-switchrouter-info)
+    - [View switch/router info](#view-switchrouter-info)
     - [Enabling and disabling "EXEC Mode"](#enabling-and-disabling-%22exec-mode%22)
-    - [Viewing and setting time](#viewing-and-setting-time)
-      - [Viewing time](#viewing-time)
+    - [View and setting time](#view-and-setting-time)
+      - [View time](#view-time)
       - [Setting time](#setting-time)
     - [Configuring terminal](#configuring-terminal)
       - [Setting hostname](#setting-hostname)
@@ -26,6 +26,7 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
       - [Changing SSH time-out](#changing-ssh-time-out)
       - [Changing SSH authentication retry limit](#changing-ssh-authentication-retry-limit)
       - [Assigning ports to an interface](#assigning-ports-to-an-interface)
+      - [Trunking an interface](#trunking-an-interface)
       - [Enabling port security](#enabling-port-security)
       - [Assign MAC to port (port security)](#assign-mac-to-port-port-security)
       - [Disabling HTTP server](#disabling-http-server)
@@ -34,7 +35,10 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
       - [Enabling logging](#enabling-logging)
       - [Configuring an interface](#configuring-an-interface)
       - [Configuring a range of interfaces](#configuring-a-range-of-interfaces)
-      - [Naming an interface](#naming-an-interface)
+      - [Configuring ACL](#configuring-acl)
+      - [Apply ACL](#apply-acl)
+      - [Creating and naming a VLAN](#creating-and-naming-a-vlan)
+      - [Deleting a VLAN](#deleting-a-vlan)
       - [Configuring a new MAC address for an interface](#configuring-a-new-mac-address-for-an-interface)
       - [Enabling/Disabling RIP routing](#enablingdisabling-rip-routing)
       - [Setting an interface to be passive (RIP)](#setting-an-interface-to-be-passive-rip)
@@ -44,27 +48,30 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
       - [Setting up default route](#setting-up-default-route)
       - [Enabling IPv6 uni-cast routing](#enabling-ipv6-uni-cast-routing)
     - [Enabling support for IPv6 on 2960 Switch Database Manager](#enabling-support-for-ipv6-on-2960-switch-database-manager)
-    - [Viewing running configuration](#viewing-running-configuration)
+    - [View running configuration](#view-running-configuration)
     - [Saving configuration](#saving-configuration)
     - [Resetting configuration](#resetting-configuration)
-    - [Viewing status of connected interfaces](#viewing-status-of-connected-interfaces)
-    - [Viewing routing protocol](#viewing-routing-protocol)
-    - [Viewing MAC address of switch](#viewing-mac-address-of-switch)
-    - [Viewing ARP table of the switch/router](#viewing-arp-table-of-the-switchrouter)
-    - [Viewing MAC address table](#viewing-mac-address-table)
+    - [View status of connected interfaces](#view-status-of-connected-interfaces)
+    - [View routing protocol](#view-routing-protocol)
+    - [View ACL](#view-acl)
+    - [View MAC address of switch](#view-mac-address-of-switch)
+    - [View ARP table of the switch/router](#view-arp-table-of-the-switchrouter)
+    - [View MAC address table](#view-mac-address-table)
+    - [View VLAN and port assignments](#view-vlan-and-port-assignments)
     - [View interface status](#view-interface-status)
+    - [View trunked interfaces](#view-trunked-interfaces)
     - [View IP address status of interface](#view-ip-address-status-of-interface)
     - [Clear MAC address table](#clear-mac-address-table)
     - [View routing table](#view-routing-table)
   - [COMPUTER](#computer)
     - [Configuring IPv4/IPv6 address](#configuring-ipv4ipv6-address)
     - [Opening Command Prompt](#opening-command-prompt)
-    - [Viewing interfaces, IP, MAC address, gateway, subnet mask](#viewing-interfaces-ip-mac-address-gateway-subnet-mask)
-    - [Viewing port security](#viewing-port-security)
+    - [View interfaces, IP, MAC address, gateway, subnet mask](#view-interfaces-ip-mac-address-gateway-subnet-mask)
+    - [View port security](#view-port-security)
       - [Of interface](#of-interface)
       - [Of interfaces](#of-interfaces)
     - [Pinging](#pinging)
-    - [Viewing ARP table of the computer](#viewing-arp-table-of-the-computer)
+    - [View ARP table of the computer](#view-arp-table-of-the-computer)
   - [About](#about)
   
 ## SWITCH/ROUTER
@@ -92,7 +99,7 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
 Would you like to enter the initial configuration dialog? [yes/no]: n
 ```
 
-### Viewing switch/router info
+### View switch/router info
 
 ```
 Switch> show version
@@ -129,9 +136,9 @@ Switch# exit
 Switch> |
 ```
 
-### Viewing and setting time
+### View and setting time
 
-#### Viewing time
+#### View time
 
 ```
 Switch> show clock
@@ -232,63 +239,75 @@ Switch# |
 #### Setting SSH password
 
 ```
-S1(config)# username USERNAME privilege PRIVILEGE secret PASSWORD
+Switch(config)# username USERNAME privilege PRIVILEGE secret PASSWORD
 ```
 
 ```
-S1(config)# username admin privilege 15 secret myP4ssw0rd
+Switch(config)# username admin privilege 15 secret myP4ssw0rd
 ```
 
 #### Allow only SSH connections
 
 ```
-S1(config)# line vty 0 15
-S1(config-line)# transport input ssh
-S1(config-line)# login local
+Switch(config)# line vty 0 15
+Switch(config-line)# transport input ssh
+Switch(config-line)# login local
 ```
 
 #### Generating RSA crypto key
 
 ```
-S1(config)# crypto key generate rsa modulus MODULUS
+Switch(config)# crypto key generate rsa modulus MODULUS
 ```
 
 ```
-S1(config)# crypto key generate rsa modulus 1024
+Switch(config)# crypto key generate rsa modulus 1024
 ```
 
 #### Changing SSH time-out
 
 ```
-S1(config)# ip ssh time-out TIME_OUT
+Switch(config)# ip ssh time-out TIME_OUT
 ```
 
 ```
-S1(config)# ip ssh time-out 75
+Switch(config)# ip ssh time-out 75
 ```
 
 #### Changing SSH authentication retry limit
 
 ```
-S1(config)# ip ssh authentication-retries LIMIT
+Switch(config)# ip ssh authentication-retries LIMIT
 ```
 
 ```
-S1(config)# ip ssh authentication-retries 2
+Switch(config)# ip ssh authentication-retries 2
 ```
 
 #### Assigning ports to an interface
 
 ```
-S1(config)# interface PORT
-S1(config-if)# switchport mode access
-S1(config-if)# switchport access INTERFACE_NAME INTERFACE_NO
+Switch(config)# interface PORT
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access INTERFACE_NAME INTERFACE_NO
 ```
 
 ```
-S1(config)# interface f0/5
-S1(config-if)# switchport mode access
-S1(config-if)# switchport access vlan 99
+Switch(config)# interface f0/5
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 99
+```
+
+#### Trunking an interface
+
+```
+Switch(config)# interface INTERFACE_NAME INTERFACE_NO
+Switch(config-if)# switchport mode trunk
+```
+
+```
+Switch(config)# interface f0/1
+Switch(config-if)# switchport mode trunk
 ```
 
 #### Enabling port security
@@ -296,17 +315,17 @@ S1(config-if)# switchport access vlan 99
 > Entering the switchport port-security command sets the maximum MAC addresses to 1 and the violation action to shutdown. The switchport port-security maximum and switchport port-security violation commands can be used to change the default behavior.
 
 ```
-S1(config-if)# switchport port-security
+Switch(config-if)# switchport port-security
 ```
 
 #### Assign MAC to port (port security)
 
 ```
-S1(config-if)# switchport port-security mac-address MAC_ADDRESS
+Switch(config-if)# switchport port-security mac-address MAC_ADDRESS
 ```
 
 ```
-S1(config-if)# switchport port-security mac-address ABCD.EFAB.CDEF
+Switch(config-if)# switchport port-security mac-address ABCD.EFAB.CDEF
 ```
 
 #### Disabling HTTP server
@@ -314,7 +333,7 @@ S1(config-if)# switchport port-security mac-address ABCD.EFAB.CDEF
 > Used for web interface/management, but it's not secure, so we disable it.
 
 ```
-S1(config)# no ip http server
+Switch(config)# no ip http server
 ```
 
 #### Disabling DNS Lookup
@@ -335,7 +354,7 @@ Switch(config)# |
 #### Enabling logging
 
 ```
-S1(config)# logging synchronous
+Switch(config)# logging synchronous
 ```
 
 #### Configuring an interface
@@ -362,6 +381,18 @@ Switch(config-if)# ip address 192.168.1.0 255.255.255.0
 Switch(config-if)# no shut
 ```
 
+> To configure the default gateway, use *"ip default-gateway"* command.
+
+```
+Switch(config)# interface INTERFACE_NAME INTERFACE_NO
+Switch(config-if)# ip default-gateway IP_ADDRESS
+```
+
+```
+Switch(config)# interface g0/1
+Switch(config-if)# ip default-gateway 192.168.1.1
+```
+
 #### Configuring a range of interfaces
 
 ```
@@ -372,40 +403,80 @@ Switch(config)# interface range INTERFACE_NAME INTERFACE_NO_START - INTERFACE_NO
 Switch(config)# interface range f0/0 - 16
 ```
 
-#### Naming an interface
+#### Configuring ACL
 
 ```
-S1(config)# INTERFACE_NAME INTERFACE_NO
-S1(config-INTERFACE_NAME)# name NAME
+Switch(config)# ip access-list standard NAME
+Switch(config-std-nacl)# permit host IP_ADDRESS
+Switch(config-std-nacl)# permit IP_ADDRESS WILDCARD
+Switch(config-std-nacl)# deny host IP_ADDRESS
+Switch(config-std-nacl)# deny IP_ADDRESS WILDCARD
 ```
 
 ```
-S1(config)# vlan 99
-S1(config-vlan)# name Management
+Switch(config)# ip access-list standard ADMIN-MGT
+Switch(config-std-nacl)# permit host 192.168.1.3
+Switch(config-std-nacl)# permit 192.168.1.4 0.0.0.3
+Switch(config-std-nacl)# deny host 192.168.1.9
+Switch(config-std-nacl)# deny 192.168.1.12 0.0.0.4
+```
+
+#### Apply ACL
+
+```
+Switch(config)# line LINE
+Switch(config-line)# access-class NAME in
+```
+
+```
+Switch(config)# line vty 0 15
+Switch(config-line)# access-class ADMIN-MGT in
+```
+
+#### Creating and naming a VLAN
+
+```
+Switch(config)# vlan NO
+Switch(config-INTERFACE_NAME)# name NAME
+```
+
+```
+Switch(config)# vlan 99
+Switch(config-vlan)# name Management
+```
+
+#### Deleting a VLAN
+
+```
+Switch(config)# no vlan NO
+```
+
+```
+Switch(config)# no vlan 30
 ```
 
 #### Configuring a new MAC address for an interface
 
 ```
-S1(config)# interface INTERFACE_NAME INTERFACE_NO
-S1(config-if)# mac-address MAC_ADDRESS
+Switch(config)# interface INTERFACE_NAME INTERFACE_NO
+Switch(config-if)# mac-address MAC_ADDRESS
 ```
 
 ```
-S1(config)# interface vlan 99
-S1(config-if)# mac-address ABCD.EFAB.CDEF
+Switch(config)# interface vlan 99
+Switch(config-if)# mac-address ABCD.EFAB.CDEF
 ```
 
 > Use *"no mac-address"* command to remove hard-coded MAC address.
 
 ```
-S1(config)# interface INTERFACE_NAME INTERFACE_NO
-S1(config-if)# no mac-address MAC_ADDRESS
+Switch(config)# interface INTERFACE_NAME INTERFACE_NO
+Switch(config-if)# no mac-address MAC_ADDRESS
 ```
 
 ```
-S1(config)# interface vlan 99
-S1(config-if)# no mac-address ABCD.EFAB.CDEF
+Switch(config)# interface vlan 99
+Switch(config-if)# no mac-address ABCD.EFAB.CDEF
 ```
 
 #### Enabling/Disabling RIP routing
@@ -546,7 +617,7 @@ Switch# reload
 >>>>>>> 4f2768ae2c230073f420caf9ae04145c3b91b36a
 ```
 
-### Viewing running configuration
+### View running configuration
 
 ```
 S1# show run
@@ -605,7 +676,7 @@ Switch# |
     System configuration has been modified. Save? [yes/no]: n
     ```
 
-### Viewing status of connected interfaces
+### View status of connected interfaces
 
 ```
 Switch# show ip interface brief
@@ -619,7 +690,7 @@ FastEthernet0/5        unassigned      YES unset  down                  down
 <output omitted>
 ```
 
-### Viewing routing protocol
+### View routing protocol
 
 Use this to verify RIP routing.
 
@@ -631,7 +702,16 @@ Routing Protocol is "rip"
 <output omitted>
 ```
 
-### Viewing MAC address of switch
+### View ACL
+
+```
+Switch# show ip access-lists
+Standard IP access list ADMIN-MGT
+    10 permit 192.168.1.3 (2 matches)
+    20 permit 192.168.1.4, wildcard bits 0.0.0.3 (2 matches)
+```
+
+### View MAC address of switch
 
 ```
 Switch# show interfaces vlan 1
@@ -641,7 +721,7 @@ Vlan1 is up, line protocol is up
 <output omitted>
 ```
 
-### Viewing ARP table of the switch/router
+### View ARP table of the switch/router
 
 ```
 Switch# show arp
@@ -650,7 +730,7 @@ Internet  192.168.1.1             -   001b.0c6d.8f40  ARPA   Vlan1
 Internet  192.168.1.3             0   5c26.0a24.2a60  ARPA   Vlan1
 ```
 
-### Viewing MAC address table
+### View MAC address table
 
 Use [MAC Vendor Lookup](https://www.macvendorlookup.com/) to lookup the vendor of the device using the MAC address.
 
@@ -684,10 +764,50 @@ Vlan    Mac Address       Type        Ports
 Total Mac Addresses for this criterion: 21
 ```
 
+### View VLAN and port assignments
+
+```
+Switch# show vlan brief
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                Fa0/5, Fa0/7, Fa0/8, Fa0/9
+                                                Fa0/10, Fa0/11, Fa0/12, Fa0/13
+                                                Fa0/14, Fa0/15, Fa0/16, Fa0/17
+                                                Fa0/18, Fa0/19, Fa0/20, Fa0/21
+                                                Fa0/22, Fa0/23, Fa0/24, Gi0/1
+                                                Gi0/2
+10   Student                          active    Fa0/6
+20   Faculty                          active
+99   Management                       active
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
+```
+
 ### View interface status
 
 ```
 Switch# show interface F0/1
+```
+
+### View trunked interfaces
+
+```
+Switch# show interfaces trunk
+
+Port        Mode             Encapsulation  Status        Native vlan
+Fa0/1       desirable        802.1q         trunking      1
+
+Port        Vlans allowed on trunk
+Fa0/1       1-4094
+
+Port        Vlans allowed and active in management domain
+Fa0/1       1,10,20,99
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Fa0/1       1,10,20,99
 ```
 
 ### View IP address status of interface
@@ -761,7 +881,7 @@ Router# show ip route
 2. Type *"cmd"*.
 3. Hit *ENTER*, or click *"Run"*.
 
-### Viewing interfaces, IP, MAC address, gateway, subnet mask
+### View interfaces, IP, MAC address, gateway, subnet mask
 
 ```
 C:\Users\USERNAME\> ipconfig /all
@@ -796,22 +916,22 @@ Ethernet adapter Ethernet:
 C:\Users\USERNAME\> |
 ```
 
-### Viewing port security
+### View port security
 
 #### Of interface
 
 ```
-S1# show port-security INTERFACE_NAME INTERFACE_NO
+Switch# show port-security INTERFACE_NAME INTERFACE_NO
 ```
 
 ```
-S1# show port-security interface f0/5
+Switch# show port-security interface f0/5
 ```
 
 #### Of interfaces
 
 ```
-S1# show port-security address
+Switch# show port-security address
                 Secure Mac Address Table
 ------------------------------------------------------------------------
 Vlan     Mac Address       Type                 Ports      Remaining Age
@@ -842,7 +962,7 @@ Approximate round trip times in milli-seconds:
 C:\Users\USERNAME\> |
 ```
 
-### Viewing ARP table of the computer
+### View ARP table of the computer
 
 > **ff-ff-ff-ff-ff-ff**: Multicast or broadcast.
 
