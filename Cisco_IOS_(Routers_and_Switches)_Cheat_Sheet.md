@@ -22,6 +22,7 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
       - [Encrypting passwords](#encrypting-passwords)
       - [Setting SSH password](#setting-ssh-password)
       - [Allow only SSH connections](#allow-only-ssh-connections)
+      - [Setting a domain name](#setting-a-domain-name)
       - [Generating RSA crypto key](#generating-rsa-crypto-key)
       - [Changing SSH time-out](#changing-ssh-time-out)
       - [Changing SSH authentication retry limit](#changing-ssh-authentication-retry-limit)
@@ -32,7 +33,7 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
       - [Disabling HTTP server](#disabling-http-server)
       - [Disabling DNS Lookup](#disabling-dns-lookup)
       - [Setting a MOTD banner](#setting-a-motd-banner)
-      - [Enabling logging](#enabling-logging)
+      - [Enabling/Disabling logging](#enablingdisabling-logging)
       - [Configuring an interface](#configuring-an-interface)
       - [Configuring the default gateway](#configuring-the-default-gateway)
       - [Configuring a range of interfaces](#configuring-a-range-of-interfaces)
@@ -55,6 +56,7 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
     - [View status of connected interfaces](#view-status-of-connected-interfaces)
     - [View routing protocol](#view-routing-protocol)
     - [View ACL](#view-acl)
+    - [View SSH configuration and keys](#view-ssh-configuration-and-keys)
     - [View MAC address of switch](#view-mac-address-of-switch)
     - [View ARP table of the switch/router](#view-arp-table-of-the-switchrouter)
     - [View MAC address table](#view-mac-address-table)
@@ -255,7 +257,25 @@ Switch(config-line)# transport input ssh
 Switch(config-line)# login local
 ```
 
+> Enabling SSH version 2 is recommended.
+
+```
+Switch(config)# ip ssh version 2
+```
+
+#### Setting a domain name
+
+```
+Switch(config)# ip domain-name NAME
+```
+
+```
+Switch(config)# ip domain-name cisco.com
+```
+
 #### Generating RSA crypto key
+
+> A domain name must be set before this step.
 
 ```
 Switch(config)# crypto key generate rsa modulus MODULUS
@@ -329,6 +349,12 @@ Switch(config-if)# switchport port-security mac-address MAC_ADDRESS
 Switch(config-if)# switchport port-security mac-address ABCD.EFAB.CDEF
 ```
 
+> You can use *"sticky"* parameter instead of the *MAC_ADDRESS* to enable dynamic learning.
+
+```
+Switch(config-if)# switchport port-security mac-address sticky
+```
+
 #### Disabling HTTP server
 
 > Used for web interface/management, but it's not secure, so we disable it.
@@ -352,10 +378,18 @@ Unauthorized access is strictly prohibited and prosecuted to the full extent of 
 Switch(config)# |
 ```
 
-#### Enabling logging
+#### Enabling/Disabling logging
+
+To enable:
 
 ```
 Switch(config)# logging synchronous
+```
+
+To disable:
+
+```
+Switch(config)# no logging synchronous
 ```
 
 #### Configuring an interface
@@ -380,6 +414,30 @@ Switch(config-if)# no shut
 Switch(config)# interface gigabitethernet 0/0
 Switch(config-if)# ip address 192.168.1.0 255.255.255.0
 Switch(config-if)# no shut
+```
+
+> To configure the duplex mode, auto-MDIX, and speed of an interface/port, use the following commands.
+> 
+> When using auto-MDIX on an interface, the interface speed and duplex must be set to auto.
+
+```
+Switch(config)# interface INTERFACE_NAME INTERFACE_NO
+Switch(config-if)# duplex MODE(HALF/FULL/AUTO)
+Switch(config-if)# speed SPEED(IN Mbps/AUTO)
+Switch(config-if)# mdix (AUTO)
+```
+
+```
+Switch(config)# interface gigabitethernet 0/0
+Switch(config-if)# duplex full
+Switch(config-if)# speed 100
+```
+
+```
+Switch(config)# interface gigabitethernet 0/0
+Switch(config-if)# duplex auto
+Switch(config-if)# speed auto
+Switch(config-if)# mdix auto
 ```
 
 #### Configuring the default gateway
@@ -710,6 +768,16 @@ Standard IP access list ADMIN-MGT
     20 permit 192.168.1.4, wildcard bits 0.0.0.3 (2 matches)
 ```
 
+### View SSH configuration and keys
+
+```
+Switch# show ssh
+```
+
+```
+Switch# show ip ssh
+```
+
 ### View MAC address of switch
 
 ```
@@ -787,8 +855,10 @@ VLAN Name                             Status    Ports
 
 ### View interface status
 
+> You can view the number, and the types of errors using this command.
+
 ```
-Switch# show interface F0/1
+Switch# show interfaces F0/1
 ```
 
 ### View trunked interfaces
