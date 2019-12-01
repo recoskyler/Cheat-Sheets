@@ -34,6 +34,7 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
       - [Setting a MOTD banner](#setting-a-motd-banner)
       - [Enabling logging](#enabling-logging)
       - [Configuring an interface](#configuring-an-interface)
+      - [Configuring the default gateway](#configuring-the-default-gateway)
       - [Configuring a range of interfaces](#configuring-a-range-of-interfaces)
       - [Configuring ACL](#configuring-acl)
       - [Apply ACL](#apply-acl)
@@ -381,16 +382,14 @@ Switch(config-if)# ip address 192.168.1.0 255.255.255.0
 Switch(config-if)# no shut
 ```
 
-> To configure the default gateway, use *"ip default-gateway"* command.
+#### Configuring the default gateway
 
 ```
-Switch(config)# interface INTERFACE_NAME INTERFACE_NO
-Switch(config-if)# ip default-gateway IP_ADDRESS
+Switch(config)# ip default-gateway IP_ADDRESS
 ```
 
 ```
-Switch(config)# interface g0/1
-Switch(config-if)# ip default-gateway 192.168.1.1
+Switch(config)# ip default-gateway 192.168.1.1
 ```
 
 #### Configuring a range of interfaces
