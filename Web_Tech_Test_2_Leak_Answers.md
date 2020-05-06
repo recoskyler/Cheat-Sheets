@@ -13,6 +13,9 @@
 - F
 - F
 
+> https://www.w3schools.com/sql/sql_intro.asp
+> SQL is a standard language for accessing and manipulating databases.
+
 ## 2
 
 A cookie is information stored on your device by a website you visit. They are used for keeping states of personalized settings, "remember me" info. etc. on a website. They are stored as single or multiple files on your device.
