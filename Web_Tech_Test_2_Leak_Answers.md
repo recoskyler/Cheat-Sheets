@@ -75,6 +75,12 @@ atalay.printDetails();
 DELETE FROM DBTEST;
 ```
 
+OR
+
+```SQL
+TRUNCATE TABLE DBTEST;
+```
+
 ## 10
 
 ### A
@@ -95,7 +101,7 @@ UPDATE courses SET old_credits = ects_credits * 1.5 WHERE ects_credits >= 6.00;
 ### C
 
 ```SQL
-DELETE FROM study_semesters WHERE the_year < 2000;
+DELETE FROM study_semesters WHERE the_year <= 2000;
 ```
 
 ### If you'd ike to try it, you need to create the tables and insert items first
