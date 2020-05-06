@@ -41,6 +41,8 @@ Sessions are stored on the server, which means modifying them is difficult as yo
 
 If a hacker somehow views the main PHP file that includes credentials for connecting to your database, s/he can easily gain access to your database.
 
+> On the slides, it says that you should separate it so that you don't need to type it again and again.
+
 ## 7
 
 Ajax is a method for requesting, receiving, sending data to/from a server in the background (asynchronous), and updating a page without the need of reloading. It uses REST asynchronously to perform these actions.
