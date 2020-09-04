@@ -1,5 +1,7 @@
 # Linux Commands Cheat Sheet
 
+**I'm not responsible for any disaster you may cause. Use at your own risk!**
+
 - [Linux Commands Cheat Sheet](#linux-commands-cheat-sheet)
   - [Most common commands](#most-common-commands)
     - [Print working directory](#print-working-directory)
@@ -26,6 +28,7 @@
     - [Add your public key to server, service or application](#add-your-public-key-to-server-service-or-application)
       - [Add to SSH](#add-to-ssh)
       - [Add to GitHub](#add-to-github)
+  - [About](#about)
 
 ## Most common commands
 
@@ -230,3 +233,7 @@ You can skip this step, however if you see "Insecure Key" error, please complete
     Hi USER! You've successfully authenticated, but GitHub does not provide shell access.
     Connection to github.com closed.
     ```
+
+## About
+
+Made by Adil Atalay Hamamcioglu, after failing to memorize even the simplest, shortest commands ;_; .
