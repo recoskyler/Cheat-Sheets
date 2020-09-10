@@ -9,7 +9,7 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
       - [Setting up physical connection](#setting-up-physical-connection)
       - [Using PuTTY/TeraTerm to connect to a switch/router](#using-puttyteraterm-to-connect-to-a-switchrouter)
     - [View switch/router info](#view-switchrouter-info)
-    - [Enabling and disabling "EXEC Mode"](#enabling-and-disabling-%22exec-mode%22)
+    - [Enabling and disabling "EXEC Mode"](#enabling-and-disabling-exec-mode)
     - [View and setting time](#view-and-setting-time)
       - [View time](#view-time)
       - [Setting time](#setting-time)
@@ -46,6 +46,10 @@ Can be used on: Cisco IOS and Microsoft Windows Vista, 7, 8, 8.1, 10.
       - [Setting an interface to be passive (RIP)](#setting-an-interface-to-be-passive-rip)
       - [Advertising networks (RIP)](#advertising-networks-rip)
       - [Enabling/Disabling Auto-Summarization (RIPv2 Only)](#enablingdisabling-auto-summarization-ripv2-only)
+      - [Viewing OSPF databases/tables](#viewing-ospf-databasestables)
+        - [Adjacency Database - Neighbor Table](#adjacency-database---neighbor-table)
+        - [Link-State Database - Topology Table](#link-state-database---topology-table)
+        - [Forwarding Database - Routing Table](#forwarding-database---routing-table)
       - [Setting up a static route](#setting-up-a-static-route)
       - [Setting up default route](#setting-up-default-route)
       - [Enabling IPv6 uni-cast routing](#enabling-ipv6-uni-cast-routing)
@@ -599,6 +603,32 @@ R1(config-router)# network 192.168.1.0
 
 ```
 R1(config-router)# no auto-summary
+```
+
+#### Viewing OSPF databases/tables
+
+##### Adjacency Database - Neighbor Table
+
+List of all neighbor routers to which a router has established bidirectional communication. This table is unique for each router.
+
+```
+show ip ospf neighbor
+```
+
+##### Link-State Database - Topology Table
+
+Lists information about all other routers in the network. This database represents the network topology. All routers within an area have identical LSDB.
+
+```
+show ip ospf database
+```
+
+##### Forwarding Database - Routing Table
+
+List of routes generated when an algorithm is run on the link-state database. The routing table of each router is unique and contains information on how and where to send packets to other routers.
+
+```
+show ip route
 ```
 
 #### Setting up a static route
